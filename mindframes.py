@@ -22,5 +22,6 @@ dimensions_df = pd.DataFrame(fd(news_df["title"].tolist()), index=news_df.index)
 dimensions_df.to_csv("framedimensions.csv")
 
 fs = framestructure.FramingStructure("Iseratho/model_parse_xfm_bart_base-v0_1_0")
-structure_df = pd.DataFrame(list(map(penman.encode, fs(news_df["title"].tolist()))), index=news_df.index)
+amr_graphs = fs(news_df["title"].tolist(), error_type=penman.decode("(amr-error)"))
+structure_df = pd.DataFrame(list(map(penman.encode, amr_graphs)), index=news_df.index)
 structure_df.to_csv("framestructure.csv", header=None)
